@@ -15,8 +15,8 @@ services:
         POSTGRES_DB: keycloak
         POSTGRES_USER: keycloak
         POSTGRES_PASSWORD: password
-      ports:
-        - 5432:5432
+    #  ports:
+   #     - 5432:5432
       restart: always
       #hostname: postgres-db
 
@@ -25,7 +25,7 @@ services:
          context: .
          dockerfile: Keycloack_Build.dockerfile
        container_name: Keycloak-app
-       image: keycloakbuild
+
 
        environment:
         DB_VENDOR: POSTGRES
