@@ -2,12 +2,16 @@ FROM quay.io/keycloak/keycloak:latest as builder
 
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
-ENV KC_FEATURES=admin2
+ENV KC_FEATURES=RECOVERY_CODES,DYNAMIC_SCOPES,ADMIN2,DOCKER,TOKEN_EXCHANGE
 ENV KC_DB=postgres
-ENV KC_DB_URL=jdbc:postgresql://192.168.18.169:5432/
+#ENV KC_DB_URL=jdbc:postgresql://192.168.18.169:5432/
 #ENV KC_DB_USER=keycloak
 #ENV KC_DB_PASSWORD=password
 #ENV KC_DB_DATABASE=keycloak
+
+#ENV KC_HTTP_ENABLED=true
+#ENV KC_HOSTNAME=localhost
+#ENV KC_HOSTNAME_STRICT=false
 
 
 # Install custom providers
@@ -22,16 +26,16 @@ RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysi
 # change these values to point to a running postgres instance
 ENV KC_DB_URL=jdbc:postgresql://192.168.18.169:5432/
 ENV KC_DB_USER=keycloak
-ENV KC_DB_PASSWORD=password
 ENV KC_DB_DATABASE=keycloak
+ENV KC_DB_PASSWORD=password
 
-ENV KC_ADMIN=admin
-ENV KC_ADMIN_PASSWORD=admin
+#ENV KC_ADMIN=admin
+#ENV KC_ADMIN_PASSWORD=admin
 ENV KC_HTTP_ENABLED=true
 ENV KC_HOSTNAME=localhost
 ENV KC_HOSTNAME_STRICT=false
-ENV KEYCLOAK_ADMIN=admin
-ENV KEYCLOAK_ADMIN_PASSWORD=admin
+#ENV KEYCLOAK_ADMIN=admin
+#ENV KEYCLOAK_ADMIN_PASSWORD=admin
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
 
 
