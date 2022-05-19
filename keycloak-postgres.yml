@@ -7,6 +7,7 @@ volumes:
 services:
 
   postgres:
+      container_name: postgres-db
       image: postgres
       volumes:
         - postgres_data:/var/lib/postgresql/data
@@ -17,16 +18,18 @@ services:
       ports:
         - 5432:5432
       restart: always
-      hostname: postgres-db
+      #hostname: postgres-db
 
   keycloak:
        build:
          context: .
          dockerfile: Keycloack_Build.dockerfile
+       container_name: Keycloak-app
+       image: keycloakbuild
 
        environment:
         DB_VENDOR: POSTGRES
-        DB_ADDR: 192.168.18.169
+        DB_ADDR: postgres-db
         DB_DATABASE: keycloak
         DB_USER: keycloak
         #DB_SCHEMA: public
@@ -36,10 +39,10 @@ services:
         KEYCLOAK_ADMIN: admin
         KEYCLOAK_ADMIN_PASSWORD: admin
 
-        #KC_HOSTNAME: keycloak
-        #KC_HTTP_ENABLED: 1
+        KC_HOSTNAME: keycloak
+        #KC_HOSTNAME_STRICT: 1
 
-
+       entrypoint: ["/opt/keycloak/bin/kc.sh", "start --auto-build --http-enabled true "]
 
         # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
         #JDBC_PARAMS: "ssl=true"
@@ -51,5 +54,4 @@ services:
 
        restart: always
 
-       hostname: keycloak
 
