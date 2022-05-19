@@ -32,7 +32,6 @@ services:
         DB_ADDR: postgres-db
         DB_DATABASE: keycloak
         DB_USER: keycloak
-        #DB_SCHEMA: public
         DB_PASSWORD: password
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: admin
@@ -40,9 +39,9 @@ services:
         KEYCLOAK_ADMIN_PASSWORD: admin
 
         KC_HOSTNAME: keycloak
-        #KC_HOSTNAME_STRICT: 1
+        KC_HOSTNAME_STRICT: 1
 
-       entrypoint: ["/opt/keycloak/bin/kc.sh", "start --auto-build --http-enabled true "]
+       entrypoint: ["/opt/keycloak/bin/kc.sh", "start"]
 
         # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
         #JDBC_PARAMS: "ssl=true"
