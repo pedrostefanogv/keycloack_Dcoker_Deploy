@@ -38,8 +38,8 @@ services:
         KEYCLOAK_ADMIN: admin
         KEYCLOAK_ADMIN_PASSWORD: admin
 
-        KC_HOSTNAME: keycloak
-        KC_HOSTNAME_STRICT: 1
+        KC_HOSTNAME: localhost
+        KC_HOSTNAME_STRICT: 0
 
        entrypoint: ["/opt/keycloak/bin/kc.sh", "start"]
 
